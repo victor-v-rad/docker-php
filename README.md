@@ -15,6 +15,7 @@ Available on [Docker Hub](https://hub.docker.com/r/behance/docker-php/).
 - `docker run behance/docker-php:7.4-alpine "php" "-v"`
 - `docker run behance/docker-php:7.4" "php" "-v"`
 - `docker run behance/docker-php:8.0" "php" "-v"`
+- `docker run behance/docker-php:8.1" "php" "-v"`
 
 Adding code to runtime, see [here](https://github.com/behance/docker-php#expectations).
 PHP tuning and configuration, see [here](https://github.com/behance/docker-php#downstream-configuration).
@@ -23,7 +24,7 @@ Adding startup logic, [basic](https://github.com/behance/docker-base#startuprunt
 
 #### Container tag scheme: `PHP_MAJOR.PHP_MINOR(-Major.Minor.Patch)(-variant)`
 
-- `PHP_MAJOR.PHP_MINOR`, required. Engine versions of PHP. ex. `docker-php:8.0`
+- `PHP_MAJOR.PHP_MINOR`, required. Engine versions of PHP. ex. `docker-php:8.1`
 - `(Major.Minor.Patch)`, optional. Semantically versioned container provisioning code. ex. `docker-php:7.4-13.4.0`.
 - `(-variant)`, optional. Alpine variants are slim versions of the container. ex. `docker-php:7.4-alpine`.
 
@@ -96,10 +97,10 @@ For extension customization, including enabling and disabling defaults, see [her
 
 Sample `Dockerfile`
 ```
-FROM behance/docker-php:8.0
+FROM behance/docker-php:8.1
 
 # (optional, recommended) Verify everything is in order from the parent
-RUN goss -g /tests/php-fpm/8.0.goss.yaml validate && /aufs_hack.sh
+RUN goss -g /tests/php-fpm/8.1.goss.yaml validate && /aufs_hack.sh
 
 # Layer local code into runtime
 COPY ./ /app/
@@ -207,10 +208,10 @@ PHP_FPM_LOG_BUFFERING | PHP_FPM_LOG_BUFFERING=no | yes | PHP 7.3+ only [docs](ht
 ---
 - Requires `bash`, `docker`, and `dgoss` ([link](https://github.com/aelsabbahy/goss/blob/master/extras/dgoss/README.md))
 
-To test locally, run `PHP_VARIANT=8.0 ./test.sh {docker engine IP}`.
+To test locally, run `PHP_VARIANT=8.1 ./test.sh {docker engine IP}`.
 
 This will:
-- Build a single container `PHP_VARIANT` (ex. 7.4-alpine, 7.4, 8.0)
+- Build a single container `PHP_VARIANT` (ex. 7.4-alpine, 7.4, 8.0, 8.1)
 - Leverages [Goss](https://goss.rocks) to confirm package, config, and extension installation
 - Validates a large file upload
 - Boots container with specific NewRelic configuration overrides
