@@ -11,6 +11,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
+  PHP_VER: 8.1
   DOCKERFILE: Dockerfile-8.1
   IMAGE_NAME: ghcr.io/${{ github.repository }}
 
@@ -39,6 +40,7 @@ jobs:
           images: ${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=${{ env.PHP_VER }},enable={{is_default_branch}}
 
       -
         name: Set up QEMU
